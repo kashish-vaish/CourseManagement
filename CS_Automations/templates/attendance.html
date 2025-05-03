@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Report – CS Rutgers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">Rutgers University – CS Department</div>
+        <div class="navbar-links">
+            <a href="/">🏠 Home</a>
+            <a href="/attendance" class="active">📋 Attendance Tracking</a>
+            <a href="/quiz-monitor">🧪 Quiz Monitoring</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <h2>Attendance Tracking – Spring 2025</h2>
+
+    <form method="POST" class="filter-form">
+        <label for="date">📅 Select Date:</label>
+        <input type="date" id="date" name="date" required value="{{ selected_date }}">
+
+        <label for="uid">👤 UID (optional):</label>
+        <input type="text" id="uid" name="uid" value="{{ selected_uid }}">
+
+        <button type="submit">🔍 View</button>
+    </form>
+
+    {% if table %}
+        <table>
+            <thead>
+                <tr>
+                    {% for col in table[0].keys() %}
+                        <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table[start:end] %}
+                    <tr>
+                        {% for val in row.values() %}
+                            <td>{{ val }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {% for p in range(1, total_pages + 1) %}
+                <a href="?page={{ p }}{% if selected_date %}&date={{ selected_date }}{% endif %}{% if selected_uid %}&uid={{ selected_uid }}{% endif %}" class="{% if p == current_page %}active{% endif %}">{{ p }}</a>
+            {% endfor %}
+        </div>
+    {% elif selected_date %}
+        <p>No attendance data found for <strong>{{ selected_date }}</strong>.</p>
+    {% endif %}
+</main>
+
+</body>
+</html>

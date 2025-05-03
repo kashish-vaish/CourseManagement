@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Rutgers Monitoring Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">CS Department – Rutgers University</div>
+        <div class="navbar-links">
+            <a href="{{ url_for('home') }}" class="{% if active_page == 'home' %}active{% endif %}">🏠 Home</a>
+            <a href="{{ url_for('attendance') }}" class="{% if active_page == 'attendance' %}active{% endif %}">📋 Attendance Tracking</a>
+            <a href="{{ url_for('quiz_monitor') }}" class="{% if active_page == 'quiz' %}active{% endif %}">🧪 Quiz Monitoring</a>
+        </div>
+    </div>
+</nav>
+
+<main class="main-content">
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
