@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Welcome – Rutgers Monitoring Portal{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Welcome to the CS Monitoring Portal</h1>
+    <p>This portal helps faculty track student quiz activity and attendance efficiently and transparently.</p>
+    <img src="{{ url_for('static', filename='CS_Banner.webp') }}" alt="Rutgers University Banner" class="hero-image">
+</section>
+
+<section class="cards">
+    <div class="card">
+        <h2>📋 Attendance Tracking</h2>
+        <p>Monitor daily attendance using survey check-ins.</p>
+        <a href="{{ url_for('attendance') }}" class="card-link">Go to Attendance</a>
+    </div>
+    <div class="card">
+        <h2>🧪 Quiz Monitoring</h2>
+        <p>View session logs and detect off-screen behavior during quizzes.</p>
+        <a href="{{ url_for('quiz_monitor') }}" class="card-link">Go to Quiz Monitoring</a>
+    </div>
+</section>
+{% endblock %}

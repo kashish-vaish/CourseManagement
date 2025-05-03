@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Canvas Quiz Monitor – CS Rutgers{% endblock %}
+{% block content %}
+
+<h2>Canvas Quiz Activity Viewer</h2>
+
+<form method="POST">
+    <label for="quiz_id">Enter Quiz ID:</label>
+    <input type="text" id="quiz_id" name="quiz_id" required value="{{ quiz_id }}">
+    <button type="submit">View</button>
+</form>
+
+{% if data and data[0].get("error") %}
+    <p class="error">{{ data[0]["error"] }}</p>
+{% elif data %}
+    <h3>Unauthorized Event Detected</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Submission ID</th>
+                <th>Log Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row.user_id }}</td>
+                    <td>{{ row.submission_id }}</td>
+                    <td><a class="button-link" href="{{ row.speedgrader_url }}" target="_blank">View</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif quiz_id %}
+    <p>No blur events found for Quiz ID <strong>{{ quiz_id }}</strong>.</p>
+{% endif %}
+
+{% endblock %}
